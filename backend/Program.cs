@@ -13,7 +13,6 @@ builder.Services.AddDbContext<ApexDbContext>(options =>
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<CalendarService>();
 builder.Services.AddScoped<AiStudyPlannerService>();
-builder.Services.AddScoped<HealthService>();
 builder.Services.AddScoped<IEmailNotificationService, EmailNotificationService>();
 builder.Services.AddHostedService<CronWorkerService>();
 

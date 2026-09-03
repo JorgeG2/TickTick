@@ -1,5 +1,6 @@
 import { useCallback, useRef } from 'react';
 import { Excalidraw } from '@excalidraw/excalidraw';
+import { useTheme } from '@/lib/theme';
 
 interface ExcalidrawCanvasProps {
   initialData?: string;
@@ -8,6 +9,7 @@ interface ExcalidrawCanvasProps {
 
 export function ExcalidrawCanvas({ initialData, onChange }: ExcalidrawCanvasProps) {
   const debounceRef = useRef<number | null>(null);
+  const { theme } = useTheme();
 
   let parsedData;
   try {
@@ -31,7 +33,7 @@ export function ExcalidrawCanvas({ initialData, onChange }: ExcalidrawCanvasProp
       <Excalidraw
         initialData={parsedData}
         onChange={handleChange}
-        theme="dark"
+        theme={theme}
       />
     </div>
   );

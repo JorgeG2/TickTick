@@ -1,6 +1,6 @@
 # Apex — Personal Productivity Dashboard
 
-A full-stack monolithic productivity dashboard with task management, multi-calendar views, rich notes, canvas drawing, habit/health tracking, AI study planning, ambient audio, and e-ink display integration.
+A full-stack monolithic productivity dashboard with task management, multi-calendar views, rich notes, canvas drawing, a full-screen Pomodoro timer, AI study planning, ambient audio, and e-ink display integration. Light and dark themes are toggled from the top-right of the topbar.
 
 ## Tech Stack
 
@@ -54,7 +54,6 @@ App runs at `http://localhost:5173` (proxies `/api` to backend).
 | GET | `/api/calendar/{date}` | Get calendar entry |
 | PUT | `/api/calendar/{date}` | Save notes/canvas |
 | POST | `/api/ai/generate-plan` | AI study plan generation |
-| POST | `/api/health/webhook` | Upsert health data |
 | GET | `/api/e-ink/today` | E-ink HTML display |
 | GET | `/api/categories` | List categories |
 | GET | `/api/shopping` | Shopping list |
@@ -67,6 +66,22 @@ Edit `backend/appsettings.json`:
 - **ConnectionStrings:DefaultConnection** — SQL Server connection
 - **OpenAI:ApiKey** — For AI study planner (falls back to rule-based plan)
 - **Email / SendGrid** — For due-task notification emails
+
+## Pomodoro
+
+`/pomodoro` is a full-screen timer with Focus / Short Break / Long Break modes, a
+long break every 4 focus sessions, and Space to start or pause. The timer state is
+shared with the floating widget on every other page — one timer, two views.
+
+Backgrounds are picked from the image button in the top right:
+
+- **Animated** — pure-CSS gradients, always available offline
+- **Photos** / **Videos** — streamed from the Unsplash and Pexels CDNs
+- **Custom** — any image or video URL
+
+To use your own files, drop them into `frontend/public/backgrounds/` and select
+them via **Custom** as `/backgrounds/<filename>`. Durations, background choice,
+dim level, and blur persist in `localStorage`.
 
 ## E-Ink Display
 
