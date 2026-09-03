@@ -1,21 +1,59 @@
 @import "tailwindcss";
 
-@theme {
+/* Theme is class-driven (`.dark` on <html>), not media-driven, so the topbar
+   toggle wins over the OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-background: #0f1117;
-  --color-foreground: #e2e8f0;
-  --color-card: #1a1d27;
-  --color-card-foreground: #e2e8f0;
-  --color-border: #2a2f3d;
-  --color-muted: #64748b;
-  --color-muted-foreground: #94a3b8;
-  --color-primary: #6366f1;
-  --color-primary-foreground: #ffffff;
-  --color-accent: #8b5cf6;
-  --color-destructive: #f43f5e;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-fg);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-fg);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
   --radius-xl: 0.75rem;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f4f5fa;
+  --fg: #0f1117;
+  --card: #ffffff;
+  --card-fg: #0f1117;
+  --border: #e2e5ef;
+  --muted: #94a3b8;
+  --muted-fg: #5b6478;
+  --primary: #5145e5;
+  --primary-fg: #ffffff;
+  --accent: #7c3aed;
+  --destructive: #e11d48;
+  --success: #059669;
+  --warning: #d97706;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0f1117;
+  --fg: #e2e8f0;
+  --card: #1a1d27;
+  --card-fg: #e2e8f0;
+  --border: #2a2f3d;
+  --muted: #64748b;
+  --muted-fg: #94a3b8;
+  --primary: #6366f1;
+  --primary-fg: #ffffff;
+  --accent: #8b5cf6;
+  --destructive: #f43f5e;
+  --success: #10b981;
+  --warning: #f59e0b;
 }
 
 * {
@@ -50,4 +88,46 @@ body {
 
 .animate-scale-in {
   animation: scale-in 0.15s ease-out;
+}
+
+/* ---- Pomodoro background + timer animations ---- */
+
+/* Slow drift for the gradient ("Animated") backgrounds. */
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-8%, -6%, 0) scale(1.25); }
+  50%  { transform: translate3d(8%, 6%, 0) scale(1.4); }
+  100% { transform: translate3d(-8%, -6%, 0) scale(1.25); }
+}
+
+.animate-aurora {
+  animation: aurora-drift 28s ease-in-out infinite;
+}
+
+/* Ken Burns pan/zoom so still photos don't feel static. */
+@keyframes ken-burns {
+  0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.16) translate3d(-1.5%, -1.5%, 0); }
+  100% { transform: scale(1.06) translate3d(0, 0, 0); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 40s ease-in-out infinite;
+}
+
+/* Breathing halo behind the ring while the timer runs. */
+@keyframes breathe {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%      { opacity: 0.75; transform: scale(1.06); }
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora,
+  .animate-ken-burns,
+  .animate-breathe {
+    animation: none;
+  }
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useCreateBlockNote } from '@blocknote/react';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
+import { useTheme } from '@/lib/theme';
 
 interface BlockNoteEditorProps {
   initialContent?: string;
@@ -10,6 +11,7 @@ interface BlockNoteEditorProps {
 
 export function BlockNoteEditor({ initialContent, onChange }: BlockNoteEditorProps) {
   const debounceRef = useRef<number | null>(null);
+  const { theme } = useTheme();
 
   let parsedContent;
   try {
@@ -32,6 +34,7 @@ export function BlockNoteEditor({ initialContent, onChange }: BlockNoteEditorPro
     <div className="min-h-[300px] rounded-xl border border-border overflow-hidden [&_.bn-editor]:bg-card [&_.bn-editor]:text-foreground">
       <BlockNoteView
         editor={editor}
+        theme={theme}
         onChange={() => {
           if (debounceRef.current) clearTimeout(debounceRef.current);
           debounceRef.current = window.setTimeout(() => {

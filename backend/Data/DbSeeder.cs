@@ -79,15 +79,6 @@ public static class DbSeeder
             new ShoppingItem { Id = Guid.NewGuid(), Name = "Eggs", EstimatedPrice = 5.99m, IsPurchased = true }
         );
 
-        db.HealthLogs.Add(new HealthLog
-        {
-            Id = Guid.NewGuid(),
-            LogDate = today,
-            StepCount = 8432,
-            SleepHours = 7.5m,
-            WeightLbs = 165.0m
-        });
-
         await db.SaveChangesAsync();
     }
 }

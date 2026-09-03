@@ -41,14 +41,6 @@ export interface CalendarEntryDto {
   excalidrawJson: string | null;
 }
 
-export interface HealthLogDto {
-  id: string;
-  date: string;
-  stepCount: number;
-  sleepHours: number;
-  weightLbs: number;
-}
-
 export interface ShoppingItemDto {
   id: string;
   name: string;
@@ -100,11 +92,6 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-
-  getHealthLogs: (days = 30) => request<HealthLogDto[]>(`/health?days=${days}`),
-
-  upsertHealth: (data: { date: string; steps: number; sleepHours: number; weightLbs: number }) =>
-    request<HealthLogDto>('/health/webhook', { method: 'POST', body: JSON.stringify(data) }),
 
   getShopping: () => request<ShoppingItemDto[]>('/shopping'),
 

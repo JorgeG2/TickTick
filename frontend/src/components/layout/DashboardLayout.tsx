@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 import { PomodoroWidget } from '../widgets/PomodoroWidget';
@@ -11,6 +11,10 @@ export function DashboardLayout() {
   const [categories, setCategories] = useState<CategoryDto[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [streak, setStreak] = useState(0);
+  const { pathname } = useLocation();
+
+  // The Pomodoro page is the timer, so the floating copy would be redundant there.
+  const onPomodoroPage = pathname === '/pomodoro';
 
   useEffect(() => {
     api.getCategories().then(setCategories).catch(console.error);
@@ -33,7 +37,7 @@ export function DashboardLayout() {
         </main>
       </div>
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3">
-        <PomodoroWidget />
+        {!onPomodoroPage && <PomodoroWidget />}
         <AmbientAudioPlayer />
       </div>
     </div>

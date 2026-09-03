@@ -12,7 +12,6 @@ public class ApexDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<CalendarEntry> CalendarEntries => Set<CalendarEntry>();
     public DbSet<ShoppingItem> ShoppingItems => Set<ShoppingItem>();
-    public DbSet<HealthLog> HealthLogs => Set<HealthLog>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,14 +56,6 @@ public class ApexDbContext : DbContext
             e.HasKey(x => x.Id);
             e.Property(x => x.Name).IsRequired().HasMaxLength(255);
             e.Property(x => x.EstimatedPrice).HasColumnType("decimal(18,2)");
-        });
-
-        modelBuilder.Entity<HealthLog>(e =>
-        {
-            e.HasKey(x => x.Id);
-            e.HasIndex(x => x.LogDate).IsUnique();
-            e.Property(x => x.SleepHours).HasColumnType("decimal(4,2)");
-            e.Property(x => x.WeightLbs).HasColumnType("decimal(5,2)");
         });
     }
 }

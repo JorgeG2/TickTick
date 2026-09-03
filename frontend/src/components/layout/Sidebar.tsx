@@ -3,7 +3,7 @@ import {
   LayoutDashboard,
   Calendar,
   Brain,
-  Heart,
+  Timer,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
@@ -19,10 +19,10 @@ interface SidebarProps {
 }
 
 const navItems = [
+  { to: '/pomodoro', icon: Timer, label: 'Pomodoro' },
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/calendar', icon: Calendar, label: 'Calendar' },
   { to: '/study', icon: Brain, label: 'Study Planner' },
-  { to: '/health', icon: Heart, label: 'Health' },
 ];
 
 export function Sidebar({

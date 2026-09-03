@@ -56,21 +56,6 @@ public record GeneratePlanResponse(
     List<TaskDto> Tasks
 );
 
-public record HealthWebhookRequest(
-    string Date,
-    int Steps,
-    decimal SleepHours,
-    decimal WeightLbs
-);
-
-public record HealthLogDto(
-    Guid Id,
-    string Date,
-    int StepCount,
-    decimal SleepHours,
-    decimal WeightLbs
-);
-
 public record ShoppingItemDto(
     Guid Id,
     string Name,
