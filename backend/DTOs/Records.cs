@@ -34,13 +34,11 @@ public record UpdateTaskRequest(
 public record CalendarEntryDto(
     Guid? Id,
     string Date,
-    string? BlockNoteJson,
-    string? ExcalidrawJson
+    string? BlockNoteJson
 );
 
 public record UpdateCalendarRequest(
-    string? BlockNoteJson,
-    string? ExcalidrawJson
+    string? BlockNoteJson
 );
 
 public record GeneratePlanRequest(

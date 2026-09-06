@@ -49,7 +49,6 @@ public class ApexDbContext : DbContext
             e.HasKey(x => x.Id);
             e.HasIndex(x => x.EntryDate).IsUnique();
             e.Property(x => x.BlockNoteJson).HasColumnType("nvarchar(max)");
-            e.Property(x => x.ExcalidrawJson).HasColumnType("nvarchar(max)");
         });
 
         modelBuilder.Entity<ShoppingItem>(e =>

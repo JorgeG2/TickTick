@@ -38,7 +38,6 @@ export interface CalendarEntryDto {
   id: string | null;
   date: string;
   blockNoteJson: string | null;
-  excalidrawJson: string | null;
 }
 
 export interface BrainMapDto {
@@ -90,7 +89,7 @@ export const api = {
 
   getCalendar: (date: string) => request<CalendarEntryDto>(`/calendar/${date}`),
 
-  updateCalendar: (date: string, data: { blockNoteJson?: string; excalidrawJson?: string }) =>
+  updateCalendar: (date: string, data: { blockNoteJson?: string }) =>
     request<CalendarEntryDto>(`/calendar/${date}`, { method: 'PUT', body: JSON.stringify(data) }),
 
   generatePlan: (data: GeneratePlanRequest) =>

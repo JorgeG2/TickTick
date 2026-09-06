@@ -18,14 +18,13 @@ public class CalendarService
 
         if (entry is null)
         {
-            return new CalendarEntryDto(null, date.ToString("yyyy-MM-dd"), null, null);
+            return new CalendarEntryDto(null, date.ToString("yyyy-MM-dd"), null);
         }
 
         return new CalendarEntryDto(
             entry.Id,
             entry.EntryDate.ToString("yyyy-MM-dd"),
-            entry.BlockNoteJson,
-            entry.ExcalidrawJson
+            entry.BlockNoteJson
         );
     }
 
@@ -47,16 +46,12 @@ public class CalendarService
         if (request.BlockNoteJson is not null)
             entry.BlockNoteJson = request.BlockNoteJson;
 
-        if (request.ExcalidrawJson is not null)
-            entry.ExcalidrawJson = request.ExcalidrawJson;
-
         await _db.SaveChangesAsync();
 
         return new CalendarEntryDto(
             entry.Id,
             entry.EntryDate.ToString("yyyy-MM-dd"),
-            entry.BlockNoteJson,
-            entry.ExcalidrawJson
+            entry.BlockNoteJson
         );
     }
 }
