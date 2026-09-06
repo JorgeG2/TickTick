@@ -12,6 +12,7 @@ public class ApexDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<CalendarEntry> CalendarEntries => Set<CalendarEntry>();
     public DbSet<ShoppingItem> ShoppingItems => Set<ShoppingItem>();
+    public DbSet<BrainMap> BrainMaps => Set<BrainMap>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -56,6 +57,12 @@ public class ApexDbContext : DbContext
             e.HasKey(x => x.Id);
             e.Property(x => x.Name).IsRequired().HasMaxLength(255);
             e.Property(x => x.EstimatedPrice).HasColumnType("decimal(18,2)");
+        });
+
+        modelBuilder.Entity<BrainMap>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.ExcalidrawJson).HasColumnType("nvarchar(max)");
         });
     }
 }

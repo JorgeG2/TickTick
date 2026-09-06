@@ -14,7 +14,7 @@ export function CalendarPage() {
       <div>
         <h1 className="text-2xl font-bold">Calendar</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Click any day to add notes or draw on the canvas
+          Click any day to add notes
         </p>
       </div>
       <CalendarGridView tasks={tasks} />

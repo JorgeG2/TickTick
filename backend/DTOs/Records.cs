@@ -56,6 +56,16 @@ public record GeneratePlanResponse(
     List<TaskDto> Tasks
 );
 
+public record BrainMapDto(
+    Guid Id,
+    string? ExcalidrawJson,
+    DateTimeOffset UpdatedAt
+);
+
+public record UpdateBrainMapRequest(
+    string? ExcalidrawJson
+);
+
 public record ShoppingItemDto(
     Guid Id,
     string Name,

@@ -41,6 +41,12 @@ export interface CalendarEntryDto {
   excalidrawJson: string | null;
 }
 
+export interface BrainMapDto {
+  id: string;
+  excalidrawJson: string | null;
+  updatedAt: string;
+}
+
 export interface ShoppingItemDto {
   id: string;
   name: string;
@@ -91,6 +97,14 @@ export const api = {
     request<{ goal: string; tasksCreated: number; tasks: TaskDto[] }>('/ai/generate-plan', {
       method: 'POST',
       body: JSON.stringify(data),
+    }),
+
+  getBrainMap: () => request<BrainMapDto>('/brain-map'),
+
+  updateBrainMap: (excalidrawJson: string) =>
+    request<BrainMapDto>('/brain-map', {
+      method: 'PUT',
+      body: JSON.stringify({ excalidrawJson }),
     }),
 
   getShopping: () => request<ShoppingItemDto[]>('/shopping'),
