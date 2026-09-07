@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX, ChevronUp, ChevronDown, Loader2, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createNoiseBuffer } from '@/lib/noise';
+import { createBrownNoiseBuffer } from '@/lib/noise';
 import { AMBIENCE_SOUNDS, NOISE_SOUNDS, ALL_SOUNDS, type Sound } from '@/lib/sounds';
 
 type Status = 'idle' | 'loading' | 'playing' | 'error';
@@ -67,13 +67,21 @@ export function AmbientAudioPlayer() {
       void ctx.resume();
 
       const source = ctx.createBufferSource();
-      source.buffer = createNoiseBuffer(ctx, sound.noise ?? 'white');
+      source.buffer = createBrownNoiseBuffer(ctx);
       source.loop = true;
 
       const gain = ctx.createGain();
       gain.gain.value = effectiveVolume;
 
-      source.connect(gain).connect(ctx.destination);
+      // Deep Ocean is the same brown noise rolled off into a submerged swell.
+      if (sound.lowpassHz) {
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = sound.lowpassHz;
+        source.connect(filter).connect(gain).connect(ctx.destination);
+      } else {
+        source.connect(gain).connect(ctx.destination);
+      }
       source.start();
 
       sourceRef.current = source;
@@ -153,7 +161,7 @@ export function AmbientAudioPlayer() {
       </button>
 
       {expanded && (
-        <div className="w-56 px-4 pb-4 space-y-2 animate-fade-in">
+        <div className="w-56 max-h-[60vh] overflow-y-auto px-4 pb-4 space-y-2 animate-fade-in">
           {status === 'error' && (
             <p className="text-xs text-destructive">
               That sound would not load. Try another — the noise options always work.
@@ -168,7 +176,7 @@ export function AmbientAudioPlayer() {
             onSelect={select}
           />
           <SoundGroup
-            title="Noise"
+            title="Generated"
             sounds={NOISE_SOUNDS}
             active={active}
             status={status}
