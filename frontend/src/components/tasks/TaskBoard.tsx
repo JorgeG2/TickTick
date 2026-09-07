@@ -35,9 +35,12 @@ export function TaskBoard({ tasks, onUpdate, categories }: TaskBoardProps) {
           return (
             <div key={priority} className={cn('rounded-xl border-t-2 bg-card/50 p-4', color)}>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                   {label}
-                  <span className="ml-2 text-foreground">{columnTasks.length}</span>
+                  {/* Pill, not bare text: "DAY 3" inline reads as a date. */}
+                  <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-foreground/10 px-1.5 text-[11px] font-medium tabular-nums tracking-normal text-foreground/70">
+                    {columnTasks.length}
+                  </span>
                 </h3>
                 <Button variant="ghost" size="icon" onClick={() => openCreate(priority)}>
                   <Plus className="h-4 w-4" />

@@ -34,13 +34,11 @@ public record UpdateTaskRequest(
 public record CalendarEntryDto(
     Guid? Id,
     string Date,
-    string? BlockNoteJson,
-    string? ExcalidrawJson
+    string? BlockNoteJson
 );
 
 public record UpdateCalendarRequest(
-    string? BlockNoteJson,
-    string? ExcalidrawJson
+    string? BlockNoteJson
 );
 
 public record GeneratePlanRequest(
@@ -54,6 +52,16 @@ public record GeneratePlanResponse(
     string Goal,
     int TasksCreated,
     List<TaskDto> Tasks
+);
+
+public record BrainMapDto(
+    Guid Id,
+    string? ExcalidrawJson,
+    DateTimeOffset UpdatedAt
+);
+
+public record UpdateBrainMapRequest(
+    string? ExcalidrawJson
 );
 
 public record ShoppingItemDto(

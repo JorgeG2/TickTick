@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   Calendar,
   Brain,
+  Network,
   Timer,
   ChevronLeft,
   ChevronRight,
@@ -22,6 +23,7 @@ const navItems = [
   { to: '/pomodoro', icon: Timer, label: 'Pomodoro' },
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/calendar', icon: Calendar, label: 'Calendar' },
+  { to: '/brain-map', icon: Network, label: 'Brain Map' },
   { to: '/study', icon: Brain, label: 'Study Planner' },
 ];
 
